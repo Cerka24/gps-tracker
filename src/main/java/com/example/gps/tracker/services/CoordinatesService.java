@@ -19,26 +19,24 @@ public class CoordinatesService {
         this.deviceRepository = deviceRepository;
     }
 
-    public void postGPSData(List<CoordinatesDTO> coordinatesDTOList) {
-        for (CoordinatesDTO coordinatesDTO : coordinatesDTOList) {
-            Devices devices = deviceRepository.findBySerialNoRpi(coordinatesDTO.getSerialNo());
+    public void postGPSData(CoordinatesDTO coordinatesDTO) {
+        Devices devices = deviceRepository.findBySerialNoRpi(coordinatesDTO.getSerialNo());
 
-            if (devices == null) {
-                throw new RuntimeException("No device registered with provided serial number");
-            }
-
-            Coordinates coordinates = new Coordinates();
-
-            coordinates.setUsersId(devices.getUser().getId());
-            coordinates.setLat(coordinatesDTO.getLat());
-            coordinates.setLon(coordinatesDTO.getLon());
-            coordinates.setSpeed(coordinatesDTO.getSpeed());
-            coordinates.setTimestamp(coordinatesDTO.getTimestamp());
-            coordinates.setDate(coordinatesDTO.getDate());
-            coordinates.setTime(coordinatesDTO.getTime());
-            coordinates.setDevice(devices);
-
-            coordinatesRepository.save(coordinates);
+        if (devices == null) {
+            throw new RuntimeException("No device registered with provided serial number");
         }
+
+        Coordinates coordinates = new Coordinates();
+
+        coordinates.setUsersId(devices.getUser().getId());
+        coordinates.setLat(coordinatesDTO.getLat());
+        coordinates.setLon(coordinatesDTO.getLon());
+        coordinates.setSpeed(coordinatesDTO.getSpeed());
+        coordinates.setTimestamp(coordinatesDTO.getTimestamp());
+        coordinates.setDate(coordinatesDTO.getDate());
+        coordinates.setTime(coordinatesDTO.getTime());
+        coordinates.setDevice(devices);
+
+        coordinatesRepository.save(coordinates);
     }
 }

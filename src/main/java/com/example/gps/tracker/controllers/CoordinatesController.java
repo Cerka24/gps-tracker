@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(value = "coordinates")
 public class CoordinatesController {
@@ -20,7 +18,7 @@ public class CoordinatesController {
     }
 
     @PostMapping
-    public void postGPSData(@RequestBody List<CoordinatesDTO> coordinatesDTOList) {
-        coordinatesService.postGPSData(coordinatesDTOList);
+    public void postGPSData(@RequestBody CoordinatesDTO coordinatesDTO) {
+        coordinatesService.postGPSData(coordinatesDTO);
     }
 }
